@@ -26,7 +26,7 @@
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Link 1</a>
+                <a class="nav-link" href="{% url 'contato-home' %}">Contato</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link 2</a>
@@ -35,11 +35,11 @@
             <!-- Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Dropdown link
+                    Contato
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="{% url 'contato-home' %}">Lista Conatato</a>
+                    <a class="dropdown-item" href="{% url 'contato-novo' %}">Novo Conatato</a>
                     <a class="dropdown-item" href="#">Link 3</a>
                 </div>
             </li>

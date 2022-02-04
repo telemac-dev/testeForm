@@ -8,9 +8,13 @@ class Contato(models.Model):
     ('PJ', 'Pessoa Juridica'),
     ]
     
-    tipo_contato = models.CharField(max_length=2, choices=TIPO_CONTATO, default='PJ')
+    tipo_contato = models.CharField(max_length=2, choices=[
+        ('PF', 'Pessoa Fisica'),
+        ('PJ', 'Pessoa Juridica'),
+        ], default='PJ')
     contato_ativa = models.BooleanField(default=True)
     nome = models.CharField(max_length=100, blank=False) # Nome (PF), Razão Social (PJ)
+    email = models.EmailField(max_length=100, blank=True)
     
     class Meta:
         ordering = ['nome']
@@ -53,7 +57,7 @@ class Endereco(models.Model):
     ('TO', 'Tocantins')
     ]
 
-    pessoa = models.ForeignKey('Contato', on_delete=models.CASCADE, related_name='enderecos')
+    pessoa = models.OneToOneField('Contato', on_delete=models.CASCADE, related_name='endereco')
     cep = models.CharField(max_length=8, blank=True, null=True)
     logradouro = models.CharField(max_length=50)
     numero = models.CharField(max_length=5)
