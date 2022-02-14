@@ -1,6 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column
+from crispy_forms.layout import Layout, Field, Row, Column, Submit
 from crispy_forms.bootstrap import InlineRadios
 from django.forms import ModelForm
 from .models import Contato
@@ -30,14 +30,21 @@ class InserirContatoForm(forms.ModelForm):
         self.helper = FormHelper()
         # Tu définis l'id et la classe bootstrap de ton formulaire
         
-        self.fields['nome'].widget.attrs.update(style='max-width: 50em')
-        self.fields['email'].widget.attrs.update(style='max-width: 50em')
+        #self.fields['nome'].widget.attrs.update(style='max-width: 50em')
+        #self.fields['email'].widget.attrs.update(style='max-width: 50em')
+
+        self.fields['tipo_contato'].label = False
         
         self.helper.layout = Layout(
             Row(
+                InlineRadios('tipo_contato', css_class='mb-3'),
+                ),
+            Row(
                 Column('nome'),
-                Column('email')
-            ),
-            InlineRadios('tipo_contato'),
+                Column('email'),
+                css_class = 'form-horizontal'
+                ),
+                Submit('submit', 'Salvar', css_class='btn-primary'),
             )
+
         
