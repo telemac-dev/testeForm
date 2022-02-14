@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 
 from contato.models import Contato
 from contato.forms import InserirContatoForm  
@@ -9,11 +9,17 @@ from contato.forms import InserirContatoForm
 class ContatoView(TemplateView):
     #template_name = 'html/base.html'
     template_name = 'contato/contato.html'
+
+
+class ContatoListView(ListView):
+    model = Contato
+    queryset = Contato.objects.all().order_by('nome')
+    template_name = 'contato/contato_list.html'
     
 
 class ContatoCreateView(CreateView):
     model = Contato
-    #fields = '__all__'
+    field = '__all__'
     template_name = 'contato/contato_create.html'
     form_class = InserirContatoForm
-    #success_url = reverse_lazy('')
+    success_url = reverse_lazy('contato-home')
