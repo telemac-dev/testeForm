@@ -1,6 +1,6 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column, Submit, Button, Div, FieldWithButtons, StrictButton
+from crispy_forms.layout import Layout, Field, Row, Column, Submit, Button, Div
 from crispy_forms.bootstrap import InlineRadios
 from django.forms import ModelForm
 from .models import Contato
@@ -51,8 +51,7 @@ class InserirContatoForm(forms.ModelForm):
                 ),
             Row(
                 Column(
-                    FieldWithButtons('cep', StrictButton("ViaCep"), css_class='form-control-sm col-md-1')
-                    #Field('cep', css_class='form-control-sm col-md-1')
+                    Field('cep', css_class='form-control-sm col-md-1')
                     ),
                 ),
             Row(
