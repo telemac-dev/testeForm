@@ -1,20 +1,24 @@
+from curses.ascii import NUL
 from django.db import models
 
 # Create your models here.
+class Marcador(models.Model):
+    nome = models.CharField(max_length=100, blank=False, unique=True)
+    
+    class Meta:
+        ordering = ['nome']
+        verbose_name = "Marcador"
+        verbose_name_plural = "Marcadores"
+
+    def __str__(self):
+        return self.nome
+
 class Contato(models.Model):
     
     TIPO_CONTATO = [
     ('PF', 'Pessoa Fisica'),
     ('PJ', 'Pessoa Juridica'),
     ]
-    
-    tipo_contato = models.CharField(max_length=2, choices=[
-        ('PF', 'Pessoa Fisica'),
-        ('PJ', 'Pessoa Juridica'),
-        ], default='PJ')
-    contato_ativa = models.BooleanField(default=True)
-    nome = models.CharField(max_length=100, blank=False) # Nome (PF), Razão Social (PJ)
-    email = models.EmailField(max_length=100, blank=True)
     
     UNIDADE_DE_FEDERACAO = [
     ('AC', 'Acre'),
@@ -46,6 +50,20 @@ class Contato(models.Model):
     ('TO', 'Tocantins')
     ]
 
+    tipo_contato = models.CharField(max_length=2, choices=TIPO_CONTATO, default='PJ')
+    contato_ativa = models.BooleanField(default=True)
+    nome = models.CharField(max_length=100, blank=False) # Nome (PF), Razão Social (PJ)
+    apelido = models.CharField(max_length=100, blank=False) # Apelido (PF), Nome Fantasia (PJ)
+    inscricao_federal = models.CharField(max_length=14, blank=True, null=True, unique=True) # CPF (PF), CNPJ (PJ)
+    contato_de = models.ForeignKey('self', unique=False, on_delete=models.PROTECT, related_name='contato_relacionado')
+    carga = models.CharField(max_length=50, blank=True)
+    telefone = models.CharField(max_length=20, blank=True)
+    mobile = models.CharField(max_length=20, blank=True)
+    email = models.EmailField(max_length=100, blank=True)
+    site_web = models.CharField(max_length=100, blank=True)
+    marcador = models.ManyToManyField(Marcador, blank=True)
+    observacao = models.TextField()
+    
     cep = models.CharField(max_length=8, blank=True, null=True)
     logradouro = models.CharField(max_length=50)
     numero = models.CharField(max_length=5)
@@ -61,8 +79,12 @@ class Contato(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def endereco_get(self):
+        return f'{self.logradouro}, {self.numero}\n{self.bairro}\n{self.cidade}\{self.uf}'
     
-    
+    def marcadores_get(self):
+        return f'{self.nome}'
    
 # class Endereco(models.Model):
     
