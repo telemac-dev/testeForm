@@ -31,10 +31,13 @@ class InserirContatoForm(forms.ModelForm):
         # Tu définis l'id et la classe bootstrap de ton formulaire
 
         #self.fields['nome'].widget.attrs.update(style='max-width: 50em')
-        self.fields['cep'].widget.attrs.update(style='max-width: 6em')
+        #self.fields['cep'].widget.attrs.update(style='max-width: 6em')
 
         self.fields['tipo_contato'].label = False
         self.fields['nome'].label = False
+        # self.helper.form_class = 'form-horizontal'
+        # self.helper.label_class = 'col-lg-2'
+        # self.helper.field_class = 'col-lg-8'
 
         self.helper.layout = Layout(
             Row(
@@ -51,7 +54,7 @@ class InserirContatoForm(forms.ModelForm):
                 ),
             Row(
                 Column(
-                    Field('cep', css_class='form-control-sm col-md-1')
+                    Field('cep', style='max-width: 6em', css_class='form-control-sm col-md-1' )
                     ),
                 ),
             Row(
