@@ -37,15 +37,16 @@
                 <div class="col">
                     <!-- Tipo de contato - Particular - inline 1 -->
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="tipoContatoPf" value="PF">
-                        <label class="custom-control-label" for="tipoContatoPf">Particular</label>
+                        {% render_field form.tipo_contato %}
+                            {% comment %} type="radio" class="custom-control-input" id="tipoContatoPf" value="PF" %}
+                        <label class="custom-control-label" for="tipoContatoPf">Particular</label> {% endcomment %}
                     </div>
 
                     <!-- Tipo de contato - Empresa - inline 2 -->
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="tipoContatoPj" value="PJ" checked="checked">
+                    {% comment %} <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="tipoContatoPj" value="PJ">
                         <label class="custom-control-label" for="tipoContatoPj">Empresa</label>
-                    </div>
+                    </div> {% endcomment %}
 
                 </div>
             </div>
