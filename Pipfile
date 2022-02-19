@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==3.2.12"
 django-crispy-forms = "*"
+django-widget-tweaks = "*"
 
 [dev-packages]
 
