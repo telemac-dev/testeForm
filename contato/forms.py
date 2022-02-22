@@ -10,8 +10,8 @@ class InserirContatoForm(forms.ModelForm):
     tipo_contato = forms.ChoiceField(choices=[
             ('PF', 'Particular'),
             ('PJ', 'Empresa')],
-                                        widget = forms.RadioSelect,
-                                        initial='PJ')
+            widget = forms.RadioSelect(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
+            initial='PJ')
 
     class Meta:
         model = Contato

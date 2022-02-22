@@ -35,20 +35,12 @@
 
             <!-- Tipo de contato -->
             <div class="row mt-5">
-                <div class="col">
+                <div class="col-6">
                     <!-- Tipo de contato - Particular - inline 1 -->
-                    <div class="custom-control custom-radio custom-control-inline">
-                        {% render_field form.tipo_contato %}
-                            {% comment %} type="radio" class="custom-control-input" id="tipoContatoPf" value="PF" %}
-                        <label class="custom-control-label" for="tipoContatoPf">Particular</label> {% endcomment %}
-                    </div>
-
-                    <!-- Tipo de contato - Empresa - inline 2 -->
-                    {% comment %} <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="tipoContatoPj" value="PJ">
-                        <label class="custom-control-label" for="tipoContatoPj">Empresa</label>
-                    </div> {% endcomment %}
-
+                        {% for radio in form.tipo_contato %}
+                            {{ radio.tag }}
+                            {{ radio.choice_label }}
+                        {% endfor %}
                 </div>
             </div>
 
