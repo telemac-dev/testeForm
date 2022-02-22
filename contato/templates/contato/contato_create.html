@@ -85,11 +85,10 @@
                         <!-- https://developer.snapappointments.com/bootstrap-select/examples/ -->
                         <select class="selectpicker w-100" data-dropup-auto="false" data-size="4"
                             data-live-search="true" title="Contato ou Empresa">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            {% for contato in form.contato_de %}
+                                {{ contato.tag }}
+                            {% endfor %}
+                           
                         </select>
                     </div>
                 </div>
