@@ -3,7 +3,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Row, Column, Submit, Button, Div
 from crispy_forms.bootstrap import InlineRadios
 from django.forms import ModelForm
-from .models import Contato
+from .models import Contato, Marcador
 
 
 class InserirContatoForm(forms.ModelForm):
@@ -13,6 +13,8 @@ class InserirContatoForm(forms.ModelForm):
             widget = forms.RadioSelect(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
             initial='PJ')
 
+    # https://stackoverflow.com/questions/6477856/how-to-add-attributes-to-option-tags-in-django
+    
     class Meta:
         model = Contato
         fields=('tipo_contato', 'nome', 'apelido', 'inscricao_federal', 'contato_de', 'marcador', 
