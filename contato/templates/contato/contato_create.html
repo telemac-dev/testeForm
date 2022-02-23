@@ -19,7 +19,7 @@
     </div>
 
     <!-- Formulario -->
-    <div class="form">
+    <div class="form bg-light px-4 py-4">
         <form action="" method="post">
             {% csrf_token %}
             <!-- Botões -->
@@ -83,20 +83,17 @@
                 <div class="col-6">
                     <div class="form-group">
                         <!-- https://developer.snapappointments.com/bootstrap-select/examples/ -->
-                        <select class="selectpicker w-100" data-dropup-auto="false" data-size="4"
-                            data-live-search="true" title="Contato ou Empresa">
-                            {% for contato in form.contato_de %}
-                                {{ contato.tag }}
-                            {% endfor %}
-                           
-                        </select>
+                        {% render_field form.contato_de class="selectpicker w-100" data-dropup-auto="false" data-size="4" data-live-search="true" title="Contato ou Empresa" %}
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         <!-- Multiselect dropdown -->
-                        <select multiple class="selectpicker w-100" data-dropup-auto="false" data-size="4"
+                        {% render_field form.marcador class="multiple selectpicker w-100" data-dropup-auto="false" data-size="4" data-live-search="true" title="Marcadores" %}
+                        
+                        {% comment %} <select multiple class="selectpicker w-100" data-dropup-auto="false" data-size="4"
                             data-live-search="true" title="Marcadores">
+                           
                             <option data-content="<span class='badge badge-secondary'>1</span>">1</option>
                             <option data-content="<span class='badge badge-secondary'>2</span>">2</option>
                             <option data-content="<span class='badge badge-secondary'>3</span>">4</option>
@@ -104,7 +101,7 @@
                             <option data-content="<span class='badge badge-secondary'>5</span>">6</option>
                             <option data-content="<span class='badge badge-secondary'>6</span>">7</option>
                             <option data-content="<span class='badge badge-secondary'>7</span>">8</option>
-                        </select><!-- End -->
+                        </select><!-- End --> {% endcomment %}
                     </div>
 
                 </div>
