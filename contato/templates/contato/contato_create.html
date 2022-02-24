@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container">
-        
+
     <!-- Sticky navegation -->
     <div class="row ">
         <div class="col">
@@ -36,11 +36,13 @@
             <!-- Tipo de contato -->
             <div class="row mt-5">
                 <div class="col-6">
+                    <div class="form-check form-check-inline">
                     <!-- Tipo de contato - Particular - inline 1 -->
-                        {% for radio in form.tipo_contato %}
-                            {{ radio.tag }}
-                            {{ radio.choice_label }}
-                        {% endfor %}
+                    {% for radio in form.tipo_contato %}
+                    {{ radio.tag }}
+                    <label class="form-check-label">{{ radio.choice_label }}</label>
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
 
@@ -48,8 +50,8 @@
             <div class="row mt-4">
                 <div class="col-6">
                     <div class="form-group">
-                        {% render_field form.nome class="form-control form-control-lg bg-light btn-outline-primary" type="text" placeholder="Nome completo ou Razão social" %} 
-                            
+                        {% render_field form.nome class="form-control form-control-lg bg-light btn-outline-primary" type="text" placeholder="Nome completo ou Razão social" %}
+
                     </div>
                 </div>
                 <div class="col">
@@ -90,10 +92,10 @@
                     <div class="form-group">
                         <!-- Multiselect dropdown -->
                         {% render_field form.marcador class="multiple selectpicker w-100" data-dropup-auto="false" data-size="4" data-live-search="true" title="Marcadores" %}
-                        
+
                         {% comment %} <select multiple class="selectpicker w-100" data-dropup-auto="false" data-size="4"
                             data-live-search="true" title="Marcadores">
-                           
+
                             <option data-content="<span class='badge badge-secondary'>1</span>">1</option>
                             <option data-content="<span class='badge badge-secondary'>2</span>">2</option>
                             <option data-content="<span class='badge badge-secondary'>3</span>">4</option>
@@ -106,7 +108,7 @@
 
                 </div>
             </div>
-            
+
             <div class="row mt-5">
                 <div class="col-sm-6">
                     <div id="linha1" class="row">
@@ -120,7 +122,7 @@
                                     {% render_field form.cep type="text" class="form-control form-control-sm" id="cep" placeholder="CEP" %}
                                 </div>
                             </div>
-                            
+
                             <!-- Logradura Nª -->
                             <div class="form-group row">
                                 <label for="colFormLabelSm"
@@ -168,7 +170,7 @@
                     <div id="linha2" class="row">
                         <div class="col-sm-12">
                             <!-- Content -->
-                            
+
                         </div>
                     </div>
                 </div>
@@ -184,8 +186,7 @@
 
                     <!-- Telefone -->
                     <div class="form-group row">
-                        <label for="colFormLabelSm"
-                            class="col-sm-2 col-form-label col-form-label-sm">Telefone</label>
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Telefone</label>
                         <div class="col-sm-10">
                             {% render_field form.telefone type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Nº de telefone (Ex. 92 99999 9999)" %}
                         </div>
@@ -217,7 +218,8 @@
 
                     <!-- Observações -->
                     <div class="form-group row">
-                        <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label col-form-label-sm">Observações</label>
+                        <label for="exampleFormControlTextarea1"
+                            class="col-sm-2 col-form-label col-form-label-sm">Observações</label>
                         <div class="col-sm-10">
                             {% render_field form.observacao class="form-control" id="exampleFormControlTextarea1" rows="2"> %}
                         </div>
@@ -234,74 +236,74 @@
 
 {% block script %}
 
-    <script src="{% static 'js/viacep.js' %}"></script>
+<script src="{% static 'js/viacep.js' %}"></script>
 
-    <script>
+<script>
 
-        $(document).ready(function() {
-    
-            function limpa_formulário_cep() {
-                // Limpa valores do formulário de cep.
-                $("#rua").val("");
-                $("#bairro").val("");
-                $("#cidade").val("");
-                $("#uf").val("");
-                $("#ibge").val("");
-            }
-            
-            //Quando o campo cep perde o foco.
-            $("#cep").blur(function() {
-    
-                //Nova variável "cep" somente com dígitos.
-                var cep = $(this).val().replace(/\D/g, '');
-    
-                //Verifica se campo cep possui valor informado.
-                if (cep != "") {
-    
-                    //Expressão regular para validar o CEP.
-                    var validacep = /^[0-9]{8}$/;
-    
-                    //Valida o formato do CEP.
-                    if(validacep.test(cep)) {
-    
-                        //Preenche os campos com "..." enquanto consulta webservice.
-                        $("#rua").val("...");
-                        $("#bairro").val("...");
-                        $("#cidade").val("...");
-                        $("#uf").val("...");
-                        $("#ibge").val("...");
-    
-                        //Consulta o webservice viacep.com.br/
-                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-    
-                            if (!("erro" in dados)) {
-                                //Atualiza os campos com os valores da consulta.
-                                $("#rua").val(dados.logradouro);
-                                $("#bairro").val(dados.bairro);
-                                $("#cidade").val(dados.localidade);
-                                $("#uf").val(dados.uf);
-                                $("#ibge").val(dados.ibge);
-                            } //end if.
-                            else {
-                                //CEP pesquisado não foi encontrado.
-                                limpa_formulário_cep();
-                                alert("CEP não encontrado.");
-                            }
-                        });
-                    } //end if.
-                    else {
-                        //cep é inválido.
-                        limpa_formulário_cep();
-                        alert("Formato de CEP inválido.");
-                    }
+    $(document).ready(function () {
+
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#rua").val("");
+            $("#bairro").val("");
+            $("#cidade").val("");
+            $("#uf").val("");
+            $("#ibge").val("");
+        }
+
+        //Quando o campo cep perde o foco.
+        $("#cep").blur(function () {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    $("#rua").val("...");
+                    $("#bairro").val("...");
+                    $("#cidade").val("...");
+                    $("#uf").val("...");
+                    $("#ibge").val("...");
+
+                    //Consulta o webservice viacep.com.br/
+                    $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                        if (!("erro" in dados)) {
+                            //Atualiza os campos com os valores da consulta.
+                            $("#rua").val(dados.logradouro);
+                            $("#bairro").val(dados.bairro);
+                            $("#cidade").val(dados.localidade);
+                            $("#uf").val(dados.uf);
+                            $("#ibge").val(dados.ibge);
+                        } //end if.
+                        else {
+                            //CEP pesquisado não foi encontrado.
+                            limpa_formulário_cep();
+                            alert("CEP não encontrado.");
+                        }
+                    });
                 } //end if.
                 else {
-                    //cep sem valor, limpa formulário.
+                    //cep é inválido.
                     limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
                 }
-            });
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
         });
-    
-    </script>
+    });
+
+</script>
 
 {% endblock script %}

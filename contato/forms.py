@@ -1,29 +1,53 @@
-from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column, Submit, Button, Div
 from crispy_forms.bootstrap import InlineRadios
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Button, Column, Div, Field, Layout, Row, Submit
+from django import forms
 from django.forms import ModelForm
+
 from .models import Contato, Marcador
+
+
+class ContatoForm(forms.ModelForm):
+
+    tipo_contato = forms.ChoiceField(choices=[
+        ('PF', 'Particular'),
+        ('PJ', 'Empresa')],
+        widget=forms.RadioSelect(
+            attrs={'class': 'form-check-input mx-2'}), initial='PJ')
+
+    # contato_de = forms.ModelChoiceField(queryset=Contato.objects.all())
+
+    # tipo_contato = forms.ChoiceField(choices=[
+    #     ('PF', 'Particular'),
+    #     ('PJ', 'Empresa')],
+    #     widget=forms.RadioSelect(
+    #         attrs={'class': 'custom-control custom-radio custom-control-inline'}),
+    #     initial='PJ')
+
+    class Meta:
+        model = Contato
+        fields = ('tipo_contato', 'nome', 'apelido', 'inscricao_federal', 'contato_de', 'marcador',
+                  'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf',
+                  'cargo', 'telefone', 'mobile', 'email', 'site_web', 'observacao')
 
 
 class InserirContatoForm(forms.ModelForm):
     tipo_contato = forms.ChoiceField(choices=[
-            ('PF', 'Particular'),
-            ('PJ', 'Empresa')],
-            widget = forms.RadioSelect(attrs={'class': 'custom-control custom-radio custom-control-inline'}),
-            initial='PJ')
+        ('PF', 'Particular'),
+        ('PJ', 'Empresa')],
+        widget=forms.RadioSelect(
+            attrs={'class': 'custom-control custom-radio custom-control-inline'}),
+        initial='PJ')
 
     # https://stackoverflow.com/questions/6477856/how-to-add-attributes-to-option-tags-in-django
-    
+
     class Meta:
         model = Contato
-        fields=('tipo_contato', 'nome', 'apelido', 'inscricao_federal', 'contato_de', 'marcador', 
-                'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf', 
-                'cargo', 'telefone', 'mobile', 'email', 'site_web', 'observacao')
-        
+        fields = ('tipo_contato', 'nome', 'apelido', 'inscricao_federal', 'contato_de', 'marcador',
+                  'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf',
+                  'cargo', 'telefone', 'mobile', 'email', 'site_web', 'observacao')
 
         # widgets = {'nome': forms.TextInput(attrs={'size': '50'}),}
-
 
     # def __init__(self, *args, **kwargs):
     #     """
@@ -54,7 +78,7 @@ class InserirContatoForm(forms.ModelForm):
     #             # Column(
     #             #     Field('email', css_class="form-control form-control-sm"),
     #             #     ),
-    #                 css_class="form-horizontal" 
+    #                 css_class="form-horizontal"
     #             ),
     #         Row(
     #             Column(
@@ -65,7 +89,6 @@ class InserirContatoForm(forms.ModelForm):
     #             Column(
     #                 Field('logradouro', css_class='form-control-sm col-md-3')
     #                 ),
-
 
     #             ),
     #             Submit('submit', 'Salvar', css_class='btn-primary'),
