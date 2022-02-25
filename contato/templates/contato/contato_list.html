@@ -16,6 +16,7 @@
     <table class="table table-hover">
       <thead>
         <tr>
+            <td>#</td>
           <th>Nome</th>
           <th>Apelido</th>
           <th>Cidade</th>
@@ -27,20 +28,48 @@
       <tbody>
           {% for contato in contato_list %}
         <tr>
+            <td>{{ contato.id }}</td>
           <td><a href="{% url 'contato-edita' contato.pk %}" class="list-group-item-action list-group-item-light">{{ contato.nome }}</a></td>
           <td>{{ contato.apelido }}</td>
           <td>{{ contato.cidade }}</td>
           <td>{{ contato.telefone }}</td>
           <td>{{ contato.mobile }}</td>
           <td>{{ contato.email }}</td>
-          <td><a href="{% url 'contato-remover' contato.pk %}"><i class="fa fa-trash" ></i></a></td>
+          <td><a href="{% url 'contato-remover' contato.pk %}" class="dropdown-item text-danger" data-toggle="modal"
+            data-target="#delete-item-modal" id="delete-item"><i class="fa fa-trash" ></i></a></td>
         </tr>
             {% endfor %}
       </tbody>
     </table>
   </div>
 
+  <!-- https://stackoverflow.com/questions/59566549/how-to-do-delete-confirmation-for-a-table-data-with-bootstrap-modal-in-django -->
+   <!-- Modal de confirmação do delete -->
+   <div class="modal fade" id="delete-item-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Tem certeza de que deseja remover este item?</p>
+            </div>
+            <div class="justify-content-between mb-2 mr-2 text-right">
+                <form method="post" id="item-delete-form">
+                    <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Descartar</button>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Remover</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock content %}
 
 {% block script %}
+<script>
+    $(document).on('click', '#delete-item', () => {
+        document.getElementById("item-delete-form").action = document.querySelector('#delete-item').href
+    });
+</script>
 {% endblock script %}

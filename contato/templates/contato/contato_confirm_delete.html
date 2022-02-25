@@ -1,0 +1,17 @@
+<!-- Modal de confirmação do delete -->
+<div class="modal fade" id="delete-item-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Tem certeza de que deseja remover este item?</p>
+            </div>
+            <div class="justify-content-between mb-2 mr-2 text-right">
+                <form method="post" id="item-delete-form">
+                    <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Descartar</button>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Remover</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

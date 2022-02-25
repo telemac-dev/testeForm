@@ -55,7 +55,7 @@ class Contato(models.Model):
     nome = models.CharField(max_length=100, blank=False) # Nome (PF), Razão Social (PJ)
     apelido = models.CharField(max_length=100, blank=True) # Apelido (PF), Nome Fantasia (PJ)
     inscricao_federal = models.CharField(max_length=14, blank=True, null=True, unique=True) # CPF (PF), CNPJ (PJ)
-    contato_de = models.ForeignKey('self', blank=True, null=True, unique=False, on_delete=models.PROTECT, related_name='contato_relacionado')
+    contato_de = models.ForeignKey('self', blank=True, null=True, unique=False, on_delete=models.SET_NULL, related_name='contato_relacionado')
     cargo = models.CharField(max_length=50, blank=True)
     telefone = models.CharField(max_length=20, blank=True)
     mobile = models.CharField(max_length=20, blank=True)
