@@ -1,6 +1,7 @@
+from ast import Delete
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView, DeleteView
 
 from contato.forms import ContatoForm
 from contato.models import Contato
@@ -24,3 +25,16 @@ class ContatoCreateView(CreateView):
     template_name = 'contato/contato_create.html'
     form_class = ContatoForm
     success_url = reverse_lazy('contato-home')
+
+class ContatoUpdateView(UpdateView):
+    model = Contato
+    field = '__all__'
+    template_name = 'contato/contato_create.html'
+    form_class = ContatoForm
+    success_url = reverse_lazy('contato-home')
+
+
+class ContatoDeleteView(DeleteView):
+    model = Contato
+    success_url = reverse_lazy('contato-home')
+    
